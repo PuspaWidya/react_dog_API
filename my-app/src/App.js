@@ -1,29 +1,30 @@
 // import logo from './logo.svg';
 import './App.css';
 import React from 'react';
-
+import DogList from '../src/components/Doglist'
+import FormDog from '../src/components/DogForm'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 class App extends React.Component{
   constructor(props){
     super(props)
 
     this.state ={
-      first_name:'Micky',
-      last_name:'Mouse',
-      age:100,
-      city:'Disney land',
-      dogData:[]
+      dogData:[],
+      image:[]
     }
 
   }
   getDataFromApi =()=>{
-    fetch('https://api.thedogapi.com/v1/breeds')
+    // fetch('https://api.thedogapi.com/v1/breeds')
+    fetch('https://api.thedogapi.com/v1/breeds?limit=5&page=1')
     .then(res=>res.json())
     .then(res =>{
       console.log(res)
       this.setState({
         ...this.state,
-        dogData: res
+        dogData: res,
+        image: res.image
       })
     })
     .catch(err =>{
@@ -36,24 +37,38 @@ class App extends React.Component{
     this.getDataFromApi()
   }
 
+  addDog=(newDataDog)=>{
+    let newDog = this.state.dogData.concat(newDataDog)
+    this.setState({
+      ...this.state,
+      dogData:newDog
+    })
+  }
 
 
   render() {
-    const {first_name,dogData} = this.state
+    const {dogData} = this.state
     return(
-      <>
-      <h1 className="greet">Hello world</h1>
-      <h1>{first_name}</h1>
-      <ul>
-        <li> name - life spam</li>
-        {
-          dogData.map(dog =>{
-            return <li> {dog.name} - {dog.life_span}</li>
-          })
-        }
-      </ul>
-      {/* <h1>{JSON.stringify(dogData[0])}</h1> */}
-     {/* <h1>{dogData[0]}</h1> */}
+      <>  
+      <div>
+        <img class="hero-image" src="https://images.unsplash.com/photo-1537151641189-e685b67326c5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1049&q=80" alt=""></img>
+        <div class="hero-text">
+            <h1>Are you ready for the cuteness?</h1>
+              <p>We are waiting you</p>
+             </div>
+          </div>
+
+          <div class="card-deck " id="cardDog" >
+          <div class="row">
+          {
+           dogData.map(dog =>{
+           return <DogList dogs={dog} key={dog.id} ></DogList>
+           })
+           }
+          </div>
+          </div>
+      
+        <FormDog addDog={this.addDog}></FormDog>
       </>
     ) 
   }
