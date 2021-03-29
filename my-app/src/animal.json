@@ -1,0 +1,32 @@
+{
+"name": "animal",
+"rows": [
+    {
+    "id": 1,
+    "first_name": "Alvah",
+    "last_name": "Bartoletti",
+    "age": 103,
+    "city": "Clarksville"
+    },
+    {
+    "id": 2,
+    "first_name": "Rahsaan",
+    "last_name": "Baumbach",
+    "age": 55,
+    "city": "Merrittbury"
+    },
+    {
+    "id": 3,
+    "first_name": "Addie",
+    "last_name": "O'Connell",
+    "age": 64,
+    "city": "Miami Gardens"
+    },
+    {
+    "id": 4,
+    "first_name": "Raphaelle",
+    "last_name": "Breitenberg",
+    "age": 98,
+    "city": "Hyattton"
+    }
+]}
