@@ -14,7 +14,7 @@ function App(){
     .then(res=>res.json())
     .then(res => {
       setDogData(res)
-      console.log(dogData)
+      console.log(dogData,'>>>>')
     })
      .catch(err =>{
         console.log(err)

@@ -2,11 +2,5 @@ npx create-react-app my-app
 cd my-app
 npm start
 
- <ul>
-        <li> name - life spam</li>
-        {
-          dogData.map(dog =>{
-         return <DogList dogs={dog} key={dog.id} ></DogList>
-          })
-        }
-      </ul>
+
+1. setiap di tambahin di suruh namabhin key??
