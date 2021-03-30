@@ -16,15 +16,13 @@ class App extends React.Component{
 
   }
   getDataFromApi =()=>{
-    // fetch('https://api.thedogapi.com/v1/breeds')
     fetch('https://api.thedogapi.com/v1/breeds?limit=5&page=1')
     .then(res=>res.json())
     .then(res =>{
       console.log(res)
       this.setState({
         ...this.state,
-        dogData: res,
-        image: res.image
+        dogData: res
       })
     })
     .catch(err =>{
@@ -37,7 +35,9 @@ class App extends React.Component{
     this.getDataFromApi()
   }
 
-  addDog=(newDataDog)=>{
+
+  addDog = (newDataDog)=>{
+    console.log(newDataDog,'newdata')
     let newDog = this.state.dogData.concat(newDataDog)
     this.setState({
       ...this.state,
@@ -51,15 +51,15 @@ class App extends React.Component{
     return(
       <>  
       <div>
-        <img class="hero-image" src="https://images.unsplash.com/photo-1537151641189-e685b67326c5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1049&q=80" alt=""></img>
-        <div class="hero-text">
+        <img className="hero-image" src="https://images.unsplash.com/photo-1537151641189-e685b67326c5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1049&q=80" alt=""></img>
+        <div className="hero-text">
             <h1>Are you ready for the cuteness?</h1>
               <p>We are waiting you</p>
              </div>
           </div>
 
-          <div class="card-deck " id="cardDog" >
-          <div class="row">
+          <div className="card-deck " id="cardDog" >
+          <div className="row">
           {
            dogData.map(dog =>{
            return <DogList dogs={dog} key={dog.id} ></DogList>
