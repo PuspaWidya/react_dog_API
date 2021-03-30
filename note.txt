@@ -4,3 +4,9 @@ npm start
 
 
 1. setiap di tambahin di suruh namabhin key??
+2. 
+
+conditional rendering
+- komponen loading
+- swal
+- pagination

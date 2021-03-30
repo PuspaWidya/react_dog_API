@@ -1,53 +1,85 @@
-// import logo from './logo.svg';
 import './App.css';
 import React, { useState ,useEffect} from 'react';
 import DogList from '../src/components/Doglist'
 import FormDog from '../src/components/DogForm'
 import 'bootstrap/dist/css/bootstrap.min.css'
-
+import useFetch from '../src/helpers/useFetch'
+import Pagination from '../src/components/Pagenation'
 
 function App(){
-  const [dogData,setDogData] = useState([])
-
-  useEffect(()=>{
-    fetch('https://api.thedogapi.com/v1/breeds?limit=5&page=1')
-    .then(res=>res.json())
-    .then(res => {
-      setDogData(res)
-      console.log(dogData,'>>>>')
-    })
-     .catch(err =>{
-        console.log(err)
-      })
-    },[])
+  const [showForm,changeForm] = useState(false)
+  const [currentPage,setCurrentPage] = useState(1)
+  const [postPerPage, setPostPerPage] = useState(12)
   
+  const changePage = (page)=>{
+    console.log(currentPage,'ini page semula')
+    setCurrentPage(page)
+    console.log(page,'sampai di app dengan selamat?')
+    console.log(dogData)
+  }
+
+  const {data:dogData,loading,error,setData} = useFetch(`https://api.thedogapi.com/v1/breeds?limit=${postPerPage}&page=${currentPage}`)
+  const {data:allDogData} = useFetch(`https://api.thedogapi.com/v1/breeds?`)
+
+  // console.log(postPerPage,'<<')
+  // console.log(dogData,'><')
+  // console.log(allDogData,'INI SEMUA DATA app')
+
+  // const changePage = (page)=>{
+  //   console.log(currentPage,'ini page semula')
+  //   setCurrentPage(page)
+  //   console.log(page,'sampai di app dengan selamat?')
+  //   console.log(dogData)
+  // }
 
    const addDog = (newDataDog)=>{
     console.log(newDataDog,'newdata')
     let newDog = dogData.concat(newDataDog)
-    setDogData(newDog)
+    setData(newDog)
   }
 
+  if(loading){
+    return <h2>loading...</h2>
+  }
 
   return(
          <>  
+
            <div>
-              <img className="hero-image" src="https://images.unsplash.com/photo-1537151641189-e685b67326c5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1049&q=80" alt=""></img>
+              <img className="hero-image" src="https://images.unsplash.com/photo-1537151641189-e685b67326c5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1049&q=80" alt="" ></img>
+               {
+                 showForm === false &&(
+               <div>
+                  <button className="btn btn-warning m-3" onClick={()=> changeForm(true)}> Add new dog</button>
+                </div>
+                 )
+               }
                 <div className="hero-text">
                 <h1>Are you ready for the cuteness?</h1>
-                <p>We are waiting you</p>
+                <p>We are waiting for you</p>
               </div>
           </div>
-          <div className="card-deck " id="cardDog" >
-            <div className="row">
+          {
+            showForm === true && (
+          <div>
+              <FormDog addDog={addDog}></FormDog>
+              <button className="btn btn-danger m-3" onClick={()=> changeForm(false)}> Close form</button>
+          </div>
+            )
+          }
+          <div className="container">
+          <div className="card-deck d-inline" id="cardDog" >
+            <div className="row flex-row">
           {
             dogData.map(dog =>{
-            return <DogList dogs={dog} key={dog.id} ></DogList>
+            return <DogList dog={dog} key={dog.id} ></DogList>
             })
           }
            </div>
+           <Pagination totalPost={allDogData} postPerPage={postPerPage} changePage={changePage}></Pagination>
           </div>
-          <FormDog addDog={addDog}></FormDog>
+          </div>
+          
           </>
  )
 }
