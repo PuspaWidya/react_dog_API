@@ -1,12 +1,12 @@
 import  {useState,useEffect }from 'react';
 
-function useFetch(url){
+function useFetch(url,id){
     const [data,setData] = useState([])
     const [loading,setLoading] = useState(false)
     const [ error,setError] = useState(null)
 
   useEffect(()=>{
-    fetch(url)
+    fetch(url+'/'+id)
     .then(res=>res.json())
     .then(res => {
       setData(res)
@@ -18,7 +18,7 @@ function useFetch(url){
       .finally(_=>{
           setLoading(false)
       })
-    },[])
+    },[id])
 
     return{
         data,
