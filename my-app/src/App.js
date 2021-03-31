@@ -3,7 +3,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  useParams
 } from "react-router-dom";
 import DogList from '../src/components/Doglist'
 import FormDog from '../src/components/DogForm'
@@ -11,7 +12,6 @@ import useFetch from '../src/helpers/useFetch'
 import Pagination from '../src/components/Pagenation'
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
-
 
 
 function App(){
@@ -22,11 +22,11 @@ function App(){
   const {data:dogData,loading,error,setData} = useFetch(`https://api.thedogapi.com/v1/breeds?limit=${postPerPage}&page=${currentPage}`)
   const {data:allDogData} = useFetch(`https://api.thedogapi.com/v1/breeds`)
   const {data:detail} = useFetch(`https://api.thedogapi.com/v1/breeds`,detailPage)
+  // const params = useParams()
+  // console.log(params,'PARAMS')
 
   const detailDog = (id)=>{
-    // console.log(id,'detail dog')
     setDetailPage(id)
-    // console.log(detailPage)
     console.log(detail,'datashow')
   }
 
@@ -81,7 +81,7 @@ function App(){
           </Route>
 
 
-          <Route path="/dogs">
+          <Route path="/dogs/:id">
           {
             showForm === false &&(
               <div>
