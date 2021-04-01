@@ -2,6 +2,7 @@ import  {useState,useEffect }from 'react';
 import {
   useParams
 } from "react-router-dom";
+import {useSelector,useDispatch} from 'react-redux'
 
 
 function useFetch(url,id){
@@ -9,11 +10,12 @@ function useFetch(url,id){
     const [data,setData] = useState([])
     const [loading,setLoading] = useState(false)
     const [ error,setError] = useState(null)
-    const params = useParams()
-    console.log(params,'PARAMS')
-    
+    const dispatch = useDispatch()
+    // const params = useParams()
+      // console.log(params,'PARAMS')
+      
   useEffect(()=>{
-    fetch(url+'/'+id)
+    fetch(url)
     .then(res=>res.json())
     .then(res => {
       setData(res)
@@ -25,7 +27,7 @@ function useFetch(url,id){
       .finally(_=>{
           setLoading(false)
       })
-    },[id])
+    },[data.id,url,dispatch])
 
     return{
         data,
