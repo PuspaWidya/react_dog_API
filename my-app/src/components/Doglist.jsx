@@ -10,9 +10,10 @@ function DogList(props){
     const {dog,detailDog} = props
     let history = useHistory()
     
+
+
     function toFavorite(dog){
         console.log(dog)
-        // dispatch({type:'favorite/add',payload:dog})
         dispatch(addFavorite(dog))
     }
 

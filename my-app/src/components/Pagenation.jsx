@@ -17,7 +17,6 @@ function Pagination (props){
     for(let i = 0; i<= Math.ceil(totalPost.length/postPerPage);i++){
         pageNumber.push(i)
     }
-    // console.log(pageNumber)
     return(
         <>
         <nav>

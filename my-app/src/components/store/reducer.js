@@ -1,16 +1,24 @@
 const initialState ={
-    counter: 0,
-    favorite :[]
+    dogs:[],
+    favorite :[],
+    allDog:[],
+    detailDog:[],
+    imgDog:[]
 }
 
 function reducer(state = initialState,action){
-    // console.log(action.payload,'<<<<<<<<<')
-    if(action.type === 'counter/add'){
-        return {...state, counter: action.payload}
+    if(action.type === 'dog/add'){
+        return {...state, dogs: action.payload}
     }else if(action.type === 'favorite/add'){
         return {...state,
             favorite: state.favorite.concat(action.payload)
         }
+    }else if(action.type === 'dog/allShow'){
+      return  {...state, allDog: action.payload}
+    }else if(action.type === 'dogDetail/detailDog'){
+        return  {...state, allDog: action.payload}
+    }else if(action.type === 'dogDetail/imgDog'){
+        return  {...state, allDog: action.payload}
     }
     return state;
 }

@@ -7,8 +7,6 @@ import {
 
 
 function NoFavorite(){
-
-    
     return(
       <>
       <h1> You don't have any favorite?</h1>

@@ -14,6 +14,10 @@ function useFetch(url,id){
     // const params = useParams()
       // console.log(params,'PARAMS')
       
+  // useEffect(()=>{
+  //     dispatch(dogAsync(url))
+  //   },[data.id,url,dispatch])
+
   useEffect(()=>{
     fetch(url)
     .then(res=>res.json())

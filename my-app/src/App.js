@@ -3,36 +3,40 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  useParams
 } from "react-router-dom";
 import DogList from '../src/components/Doglist'
 import FormDog from '../src/components/DogForm'
-import useFetch from '../src/helpers/useFetch'
 import Pagination from '../src/components/Pagenation'
 import DogDetail from '../src/components/DogDetail'
 import Favorite from '../src/components/Favorite'
-import NoFavorite from '../src/components/Favorite'
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Navbar from '../src/components/Navbar'
-
-
+import {useSelector,useDispatch} from 'react-redux'
+import {allDogAsync, dogAsync} from './components/store/action'
 
 
 function App(){
+  const dispatch = useDispatch()
+
   const [showForm,changeForm] = useState(false) // nambahin dog
   const [currentPage,setCurrentPage] = useState(1) // page kebereapa
   const [detailPage, setDetailPage] = useState('') //detail dog
   const [postPerPage, setPostPerPage] = useState(12) // satu page ada berapa dog
-
-
-  const {data:dogData,loading,error,setData} = useFetch(`https://api.thedogapi.com/v1/breeds?limit=${postPerPage}&page=${currentPage}`)
-  const {data:allDogData} = useFetch(`https://api.thedogapi.com/v1/breeds`)
-  // const {data:detail} = useFetch(`https://api.thedogapi.com/v1/breeds/${detailPage}`)
+  let   [dogData,setDogData] = useState()
+  const [data,setData] = useState([])
   
-    // let params = useParams()
-    // console.log(params,'PARAMS')
+  dogData = useSelector(state => state.dog.dogs)
+  const allDogData = useSelector(state => state.dog.allDog)
+  //* const {data:dogData,loading,error,setData} = useFetch(`https://api.thedogapi.com/v1/breeds?limit=${postPerPage}&page=${currentPage}`)
+  //* const {data:allDogData} = useFetch(`https://api.thedogapi.com/v1/breeds`)
+  
+  useEffect(() => {
+    dispatch(dogAsync(`https://api.thedogapi.com/v1/breeds?limit=${postPerPage}&page=${currentPage}`))
+    dispatch(allDogAsync('https://api.thedogapi.com/v1/breeds'))
+  }, [])
+
+
 
   const detailDog = (idDog)=>{
     setDetailPage(idDog)
@@ -49,14 +53,14 @@ function App(){
     setData(newDog)
   }
 
-  if(loading){
-    return (
-      <>
-      <h2>loading...</h2>
-      <img src="../src/components/logo.gift"></img>
-      </>
-    )
-  }
+  //* if(loading){
+    // return (
+    //   <>
+    //   <h2>loading...</h2>
+    //   <img src="../src/components/logo.gift"></img>
+    //   </>
+    // )
+  // }
 
   return(
     <Router>
@@ -74,11 +78,8 @@ function App(){
           </Route>
 
           <Route path="/dogs/:id">
-            {/* <p>  {JSON.stringify(detail)} </p> */}
             <DogDetail/>
           </Route>
-
-
           <Route path="/dogs">
           {
             showForm === false &&(
@@ -103,22 +104,23 @@ function App(){
             return <DogList dog={dog}
             key={dog.id}
             detailDog={detailDog}
-
             ></DogList>
           })
         }
            </div>
+           { allDogData.length > 0 && (
            <Pagination totalPost={allDogData}
            postPerPage={postPerPage}
            changePage={changePage}>
            </Pagination>
+             )
+           }
           </div>
           </div>
           </Route>
 
           <Route path="/favorite">
-          <Favorite
-          detailPage={detailPage}/>
+          <Favorite/>
           </Route>
         </Switch>
           </>

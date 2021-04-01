@@ -10,3 +10,58 @@ conditional rendering
 - komponen loading
 - swal
 - pagination
+
+
+----------
+REACT REDUX
+redux = global state
+
+yang jangan  di masukan ke redux : 
+-two-ways data banding (password,email)
+-form
+
+
+action->reducer->store->ui->action
+
+1. action(obj yang memiliki key name 'type') : manage & update state
+
+2. reducer : function yang menerima current state & obj action
+(state, action) => newState (akan mereturn state baru)
+
+3. state adalah data nya -> akan tinggal di store
+
+4. dispatch -> menjalankan actionya  -->mengupdate state
+store.dipastch(actionObject)
+store.dipastch({type : 'namaState/mau di apain '}) -> 'counter/increment
+
+5. selector -> mengakses state
+
+7. console.log(store.getState(()) -> tidak digunakan di react
+
+///
+const {createStore} =require('redux')
+const initialState ={
+    number:0,
+    message: 'saya harus tetap ada'
+}
+
+function reducer(state=initialState,action){
+    if(action.type === 'number/increment'){
+        return {...state, number:state.number + 1}
+    }
+    return state
+}
+
+store.dipastch({type:'number/increment'})  ==> untuk menjalankan function
+-> jika ini dilankan baru subscribe berjalan
+
+store.subscribe (()=> console.log(store.getState())) => jika terjadi perubahan tolong di contole.log 
+
+npm i react-redux
+npm i redux
+
+
+1. kenapa ke looping ?
+2. klo gak mau gk pake params kenapa gk bisa? supaya pas dia di masukin ke fav gk kemana mana
+3. kenapa gk mau di mauskin ke array?
+4. masih bingung sama ....

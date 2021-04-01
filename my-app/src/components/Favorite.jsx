@@ -1,23 +1,24 @@
 import {useSelector,useDispatch} from 'react-redux'
 import {useEffect,React,useState} from 'react'
-import useFetch from '../helpers/useFetch'
-
 
 function Favorite(props){
     const {detailPage} = props
     console.log(detailPage,'DARI FAV')
 
-    const counter = useSelector(state => state.counter)
     
-    const favoriteState = useSelector(state => state.favorite)
+    const favoriteState = useSelector(state => state.favorite.favorite)
     const dispatch = useDispatch()
 
-    function incrementCounter(){
-      dispatch({type: 'counter/increment',payload:5})
+    console.log(favoriteState)
+    if(favoriteState.length < 1){
+      return(
+        <h1> Belom ada Favorite </h1>
+      )
     }
+
+
     return(
       <>
-      {/* <h3>{JSON.stringify(favoriteState)} </h3> */}
       {
         favoriteState.map(favDog =>{
           return (
@@ -41,7 +42,7 @@ function Favorite(props){
                </div>
           )
         })
-      }
+      } 
       </>
   
     )
