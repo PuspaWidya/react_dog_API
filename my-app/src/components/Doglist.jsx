@@ -2,17 +2,18 @@ import React from 'react'
 import {useHistory} from 'react-router-dom'
 import store from '../store'
 import {useSelector,useDispatch} from 'react-redux'
+import {addFavorite} from './store/action';
+
 
 function DogList(props){
     const dispatch = useDispatch()
     const {dog,detailDog} = props
     let history = useHistory()
     
-    function toFavorite(id){
-        console.log(id)
-        detailDog(id)
-        dispatch({type:'counter/add',payload:id})
-        history.push(`/favorite/${id}`)
+    function toFavorite(dog){
+        console.log(dog)
+        // dispatch({type:'favorite/add',payload:dog})
+        dispatch(addFavorite(dog))
     }
 
     function toDetailDog(id){
@@ -32,7 +33,7 @@ function DogList(props){
                   <p className="card-text">{dog.temperament}</p>
                   <p className="card-text"><small className="text-muted">{dog.life_span}</small></p>
                 <button onClick={()=>{toDetailDog(dog.id)}}> show detail </button>
-                <button onClick={()=>{toFavorite(dog.id)}}> To Favorite </button>
+                <button onClick={()=>{toFavorite(dog)}}> To Favorite </button>
                  </div>
              </div>
         </div>

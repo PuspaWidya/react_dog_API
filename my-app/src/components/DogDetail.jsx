@@ -17,9 +17,9 @@ function DogDetail(props){
     console.log(imgDetail,'IMAGE')
     return(
         <>  
-        <p>{JSON.stringify(params)}</p>
+        {/* <p>{JSON.stringify(params)}</p>
         <p1> DARI DOG DETAIL</p1>
-        <p1> {JSON.stringify(detail)}</p1>
+        <p1> {JSON.stringify(detail)}</p1> */}
         <div className="col-4">
              <div className="card d-inline-flex" id="cardDog">
               <div className="container-image">

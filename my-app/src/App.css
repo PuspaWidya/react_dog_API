@@ -16,7 +16,8 @@ body, html {
   display: inline-block;
   text-align: center;
 }
-#cardDog{
+
+.cardDog{
 height: 400px;
 padding: 10px;
 margin-bottom: 10px;
@@ -29,7 +30,7 @@ margin-bottom: 10px;
 
 .hero-image {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
-  height: 855px;
+  height: 904px;
   /* max-width: 1700px; */
   background-position: center;
   background-repeat: no-repeat;
@@ -56,6 +57,16 @@ margin-bottom: 10px;
   /* position: absolute; */
 }
 
-.navbar{
-  background-color: transparent!important;
+.nav-link{
+  color: white;
+}
+
+#navbar a{
+  text-decoration: none;
+  padding: 1em;
+}
+
+
+#doglogo{
+  max-height: 50px;
 }

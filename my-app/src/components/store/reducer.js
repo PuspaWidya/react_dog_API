@@ -1,6 +1,3 @@
-import {createStore} from 'redux'
-
-
 const initialState ={
     counter: 0,
     favorite :[]
@@ -18,6 +15,4 @@ function reducer(state = initialState,action){
     return state;
 }
 
-const store = createStore(reducer)
-
-export default store 
+export default reducer

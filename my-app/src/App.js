@@ -15,6 +15,9 @@ import Favorite from '../src/components/Favorite'
 import NoFavorite from '../src/components/Favorite'
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import Navbar from '../src/components/Navbar'
+
+
 
 
 function App(){
@@ -47,27 +50,18 @@ function App(){
   }
 
   if(loading){
-    return <h2>loading...</h2>
+    return (
+      <>
+      <h2>loading...</h2>
+      <img src="../src/components/logo.gift"></img>
+      </>
+    )
   }
 
   return(
     <Router>
          <>  
-          <div id="navbar">
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/dogs">Show Dogs</Link>
-          </li>
-          <li>
-            <Link to="/favorite">Favorite</Link>
-          </li>
-        </ul>
-          </div>
-
-
+        <Navbar/>
         <Switch>
           <Route exact path="/">
            <div>
@@ -102,8 +96,7 @@ function App(){
             )
           }
           <div className="container">
-          <div className="card-deck d-inline"
-          id="cardDog" >
+          <div className="card-deck d-inline cardDog" >
             <div className="row flex-row">
           {
             dogData.map(dog =>{
@@ -127,10 +120,6 @@ function App(){
           <Favorite
           detailPage={detailPage}/>
           </Route>
-
-          {/* <Route path="/favorite/:id">
-            <Favorite/>
-          </Route> */}
         </Switch>
           </>
     </Router>
